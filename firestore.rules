@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is not archived
+    function isActiveUser() {
+      return request.auth != null && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.archived == false;
+    }
+    
+    // Disciplinary cases collection
+    match /disciplinary_cases/{caseId} {
+      // Allow only active (non-archived) authenticated users to read and write
+      allow read, write: if isActiveUser();
+    }
+    
+    // Students collection
+    match /students/{studentId} {
+      // Allow active authenticated users to read and write
+      allow read, write: if isActiveUser();
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Allow authenticated users to read any user profile
+      allow read: if request.auth != null;
+      
+      // Allow users to create their own profile during registration
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow users to update their own profile
+      allow update: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow admins to create, update, and delete any user
+      allow write: if request.auth != null && 
+                      get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}
