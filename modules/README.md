@@ -5,10 +5,10 @@ The app is split into five modules, one per team member. Each folder here is als
 | Folder | Module | Owner | Services (port) | Pages |
 |---|---|---|---|---|
 | `m1-auth` | 1. User Authentication and Access Control | Member 1 | auth-service (4001) | Landing, UserManagement |
-| `m2-incidents` | 2. Incident Reporting | Member 2 | incident-service (4003), student-service (4002) | StudentManagement, IncidentReport |
-| `m3-cases` | 3. Disciplinary Case Management | Member 3 | case-service (4004) | CaseManagement |
-| `m4-dashboard` | 4. Dashboard and Analytics | Member 4 | analytics-service (4006) | Dashboard |
-| `m5-reports` | 5. Reports and Records | Member 5 | report-service (4005) | Reports |
+| `m2-incidents` | 2. Incident Reporting | Mike Fernandez ([repo](https://github.com/mike7fnd/incident-reporting)) | incident-service (4003), student-service (4002) | StudentManagement, IncidentReport |
+| `m3-cases` | 3. Disciplinary Case Management | Kent Rolan O. Manalo (leader; worked on directly in this repo) | case-service (4004) | CaseManagement |
+| `m4-dashboard` | 4. Dashboard and Analytics | Kyle Emanuel Q. Magsino ([repo](https://github.com/Kyle1215-Magsino/MinSU-Guardian)) | analytics-service (4006) | Dashboard |
+| `m5-reports` | 5. Reports and Records | John Paul Rodriguez Quisto ([repo](https://github.com/johnpaulquisto10/MinSU-Guardian-Report)) | report-service (4005) | Reports |
 
 The **leader** owns everything outside `modules/`: `src/App.jsx` (routes), `src/components/Layout.jsx` (menu), `src/lib/api.js`, `src/lib/firebase.js`, the root `package.json` and deployment.
 
@@ -63,4 +63,13 @@ Do this for each module on the agreed integration day, then run `npm install && 
 
 ### Fixing a bug in a module
 
-Open an issue in that member's repo and let them fix it there. If the leader edits `modules/` directly, the next `subtree pull` will conflict.
+Open an issue in that member's repo and let them fix it there. If the leader edits a member's folder directly, the next `subtree pull` will conflict.
+
+### Module 3 (leader's own module)
+
+`modules/m3-cases` has no separate repo: the leader edits it directly here and commits to `main`. To refresh its `member/m3-cases` branch after changes:
+
+```bash
+git subtree split --prefix=modules/m3-cases -b member/m3-cases
+git push leader member/m3-cases
+```

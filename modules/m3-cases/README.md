@@ -1,6 +1,6 @@
 # Module 3 — Disciplinary Case Management
 
-**Owner:** Member 3
+**Owner:** Kent Rolan O. Manalo (leader)
 
 ## What this module owns
 
